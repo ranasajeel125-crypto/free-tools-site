@@ -59,18 +59,3 @@ function countWords(){
   document.getElementById('wParas').textContent=paras;
 }
 </script>
-<script>
-function countWords(){
-  var t=document.getElementById('wcText').value;
-  var words=t.trim()==='' ? 0 : t.trim().split(/\s+/).length;
-  var chars=t.length;
-  var charsNoSpace=t.replace(/\s/g,'').length;
-  var sentences=t.trim()==='' ? 0 : t.split(/[.!?]+/).filter(function(s){return s.trim().length>0;}).length;
-  var paras=t.trim()==='' ? 0 : t.split(/\n+/).filter(function(s){return s.trim().length>0;}).length;
-  document.getElementById('wWords').textContent=words;
-  document.getElementById('wChars').textContent=chars;
-  document.getElementById('wCharsNoSpace').textContent=charsNoSpace;
-  document.getElementById('wSentences').textContent=sentences;
-  document.getElementById('wParas').textContent=paras;
-}
-</script>

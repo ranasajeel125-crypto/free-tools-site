@@ -52,18 +52,3 @@ function copyCase(){
   else{t.select();document.execCommand('copy');msg.textContent='Copied!';}
 }
 </script>
-<script>
-function toUpper(){var t=document.getElementById('ccText');t.value=t.value.toUpperCase();}
-function toLower(){var t=document.getElementById('ccText');t.value=t.value.toLowerCase();}
-function toTitle(){
-  var t=document.getElementById('ccText');
-  t.value=t.value.toLowerCase().replace(/\b\w/g,function(c){return c.toUpperCase();});
-}
-function copyCase(){
-  var t=document.getElementById('ccText');
-  var msg=document.getElementById('ccMsg');
-  if(!t.value){msg.textContent='Nothing to copy yet — type some text first.';return;}
-  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t.value).then(function(){msg.textContent='Copied!';});}
-  else{t.select();document.execCommand('copy');msg.textContent='Copied!';}
-}
-</script>

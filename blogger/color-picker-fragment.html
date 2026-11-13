@@ -75,37 +75,3 @@ function copyVal(kind){
   else{var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);}
 }
 </script>
-<script>
-function hexToRgb(hex){
-  hex=hex.replace('#','');
-  if(hex.length===3){hex=hex.split('').map(function(c){return c+c;}).join('');}
-  var n=parseInt(hex,16);
-  return {r:(n>>16)&255,g:(n>>8)&255,b:n&255};
-}
-function showColor(hex){
-  hex=hex.toUpperCase();
-  var rgb=hexToRgb(hex);
-  document.getElementById('colorPreview').style.background=hex;
-  document.getElementById('colorOut').innerHTML='HEX: <b>'+hex+'</b><br>RGB: <b>rgb('+rgb.r+', '+rgb.g+', '+rgb.b+')</b>';
-}
-function fromPicker(){
-  var hex=document.getElementById('colorInput').value;
-  document.getElementById('hexInput').value=hex;
-  showColor(hex);
-}
-function fromHex(){
-  var hex=document.getElementById('hexInput').value.trim();
-  if(/^#?[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(hex)){
-    if(hex.charAt(0)!=='#')hex='#'+hex;
-    document.getElementById('colorInput').value=hex;
-    showColor(hex);
-  }
-}
-function copyVal(kind){
-  var hex=document.getElementById('hexInput').value.toUpperCase();
-  var rgb=hexToRgb(hex);
-  var text=kind==='hex'?hex:'rgb('+rgb.r+', '+rgb.g+', '+rgb.b+')';
-  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text);}
-  else{var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);}
-}
-</script>

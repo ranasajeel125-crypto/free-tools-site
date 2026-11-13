@@ -50,15 +50,3 @@ function genRandom(){
   out.innerHTML='Your random number is<br><b>'+n+'</b><br>(between '+min+' and '+max+')';
 }
 </script>
-<script>
-function genRandom(){
-  var min=parseInt(document.getElementById('rndMin').value,10);
-  var max=parseInt(document.getElementById('rndMax').value,10);
-  var out=document.getElementById('rndOut');
-  if(isNaN(min)||isNaN(max)){out.style.display='block';out.textContent='Please enter both a minimum and a maximum.';return;}
-  if(min>max){out.style.display='block';out.textContent='Minimum cannot be bigger than maximum.';return;}
-  var n=Math.floor(Math.random()*(max-min+1))+min;
-  out.style.display='block';
-  out.innerHTML='Your random number is<br><b>'+n+'</b><br>(between '+min+' and '+max+')';
-}
-</script>

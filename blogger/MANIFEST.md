@@ -1,6 +1,6 @@
 # Free Tools Hub — Blogger publishing manifest
 
-Blog to create: **Free Tools Hub**, address try `freetoolshub.blogspot.com` (if taken, try `free-tools-hub.blogspot.com`).
+Blog to create: **Free Tools Hub**, address `freetoolshub-rana.blogspot.com`.
 
 For each page: create a Blogger Page with the exact Page Title below (so the slug becomes /p/<slug>.html), paste the fragment file content into the HTML view, set Search Description to the text shown, publish.
 
@@ -18,4 +18,4 @@ For each page: create a Blogger Page with the exact Page Title below (so the slu
 | Color Picker | color-picker | Free color picker: pick any color and instantly see its HEX and RGB values, ready to copy for your design, website or project. No signup. | color-picker-fragment.html |
 | Unit Converter | unit-converter | Free unit converter: convert length (km, metres, miles, feet), weight (kg, pounds) and temperature (Celsius, Fahrenheit) instantly. No signup. | unit-converter-fragment.html |
 
-Raw fragment URLs (after push): https://raw.githubusercontent.com/ranasajeel125-crypto/free-tools-site/master/blogger/<fragment file>
+Raw fragment URLs: https://raw.githubusercontent.com/ranasajeel125-crypto/free-tools-site/master/blogger/<fragment file>

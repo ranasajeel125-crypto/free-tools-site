@@ -51,16 +51,3 @@ function calcBMI(){
   out.innerHTML='Your BMI is <b>'+bmi.toFixed(1)+'</b> — <b>'+cat+'</b>.';
 }
 </script>
-<script>
-function calcBMI(){
-  var h=parseFloat(document.getElementById('bmiH').value);
-  var w=parseFloat(document.getElementById('bmiW').value);
-  var out=document.getElementById('bmiOut');
-  if(isNaN(h)||isNaN(w)||h<=0||w<=0){out.style.display='block';out.textContent='Please enter a valid height and weight.';return;}
-  var m=h/100;
-  var bmi=w/(m*m);
-  var cat=bmi<18.5?'Underweight':bmi<25?'Healthy weight':bmi<30?'Overweight':'Obese';
-  out.style.display='block';
-  out.innerHTML='Your BMI is <b>'+bmi.toFixed(1)+'</b> — <b>'+cat+'</b>.';
-}
-</script>

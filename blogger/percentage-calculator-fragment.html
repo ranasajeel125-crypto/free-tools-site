@@ -67,24 +67,3 @@ function calcPctIs(){
   out.innerHTML='<b>'+x+'</b> is <b>'+r.toFixed(2)+'%</b> of <b>'+y+'</b>';
 }
 </script>
-<script>
-function calcPctOf(){
-  var x=parseFloat(document.getElementById('pctA').value);
-  var y=parseFloat(document.getElementById('pctB').value);
-  var out=document.getElementById('pctOut1');
-  if(isNaN(x)||isNaN(y)){out.style.display='block';out.textContent='Please enter both numbers.';return;}
-  var r=x*y/100;
-  out.style.display='block';
-  out.innerHTML='<b>'+x+'%</b> of <b>'+y+'</b> is <b>'+r+'</b>';
-}
-function calcPctIs(){
-  var x=parseFloat(document.getElementById('pctC').value);
-  var y=parseFloat(document.getElementById('pctD').value);
-  var out=document.getElementById('pctOut2');
-  if(isNaN(x)||isNaN(y)){out.style.display='block';out.textContent='Please enter both numbers.';return;}
-  if(y===0){out.style.display='block';out.textContent='The second number cannot be zero.';return;}
-  var r=x/y*100;
-  out.style.display='block';
-  out.innerHTML='<b>'+x+'</b> is <b>'+r.toFixed(2)+'%</b> of <b>'+y+'</b>';
-}
-</script>

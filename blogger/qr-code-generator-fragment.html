@@ -72,29 +72,3 @@ function downloadQR(){
 makeQR();
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script>
-function makeQR(){
-  var text=document.getElementById('qrText').value.trim();
-  var size=parseInt(document.getElementById('qrSize').value,10);
-  var box=document.getElementById('qrcode');
-  var msg=document.getElementById('qrMsg');
-  var dl=document.getElementById('dlBtn');
-  box.innerHTML='';
-  if(!text){msg.style.display='block';msg.textContent='Please type some text or a link first.';dl.style.display='none';return;}
-  msg.style.display='none';
-  new QRCode(box,{text:text,width:size,height:size,correctLevel:QRCode.CorrectLevel.M});
-  dl.style.display='inline-block';
-}
-function downloadQR(){
-  var box=document.getElementById('qrcode');
-  var img=box.querySelector('img');
-  var canvas=box.querySelector('canvas');
-  var a=document.createElement('a');
-  a.download='qr-code.png';
-  if(canvas){a.href=canvas.toDataURL('image/png');}
-  else if(img){a.href=img.src;}
-  else{return;}
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
-}
-makeQR();
-</script>

@@ -53,22 +53,3 @@ function calcAge(){
   out.innerHTML='You are <b>'+years+' years, '+months+' months and '+days+' days</b> old.<br>You have lived <b>'+totalDays.toLocaleString()+' days</b>.';
 }
 </script>
-<script>
-function calcAge(){
-  var v=document.getElementById('dob').value;
-  var out=document.getElementById('ageOut');
-  if(!v){out.style.display='block';out.textContent='Please pick your date of birth first.';return;}
-  var parts=v.split('-');
-  var birth=new Date(parseInt(parts[0],10),parseInt(parts[1],10)-1,parseInt(parts[2],10));
-  var now=new Date();
-  if(birth>now){out.style.display='block';out.textContent='Date of birth cannot be in the future.';return;}
-  var years=now.getFullYear()-birth.getFullYear();
-  var months=now.getMonth()-birth.getMonth();
-  var days=now.getDate()-birth.getDate();
-  if(days<0){months--;var prev=new Date(now.getFullYear(),now.getMonth(),0);days+=prev.getDate();}
-  if(months<0){years--;months+=12;}
-  var totalDays=Math.floor((now-birth)/86400000);
-  out.style.display='block';
-  out.innerHTML='You are <b>'+years+' years, '+months+' months and '+days+' days</b> old.<br>You have lived <b>'+totalDays.toLocaleString()+' days</b>.';
-}
-</script>
