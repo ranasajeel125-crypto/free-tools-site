@@ -1,0 +1,79 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free QR Code Generator — Make a QR Code for Any Text or Link | Free Tools Hub</title>
+<meta name="description" content="Free QR code generator: type any text or web link and get a QR code instantly. Download it as a picture. No signup, no download, free to use.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Arial,sans-serif;margin:0;background:#f4f6f8;color:#1a1a1a;line-height:1.6}
+header{background:#16365c;color:#fff;padding:22px 16px;text-align:center}
+header a{color:#fff;font-size:26px;font-weight:800;text-decoration:none}
+header p{margin:4px 0 0;color:#cfe0f2;font-size:15px}
+nav{background:#0f2a47;padding:10px 16px;text-align:center}
+nav a{color:#dbe9f7;text-decoration:none;margin:0 8px;font-size:14px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+h1{font-size:25px;line-height:1.3}
+.card{background:#fff;border:1px solid #dde3e8;border-radius:10px;padding:20px;margin:18px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #b9c4ce;border-radius:6px;font-size:16px}
+textarea{min-height:110px;resize:vertical}
+button{background:#16365c;color:#fff;border:0;border-radius:6px;padding:11px 20px;font-size:16px;cursor:pointer;margin:8px 8px 0 0}
+button.secondary{background:#e7edf2;color:#16365c}
+.result{background:#eef6ee;border:1px solid #bcd8bc;border-radius:6px;padding:14px;margin-top:16px;font-size:18px}
+#qrcode{text-align:center;margin:16px 0}
+#qrcode img,#qrcode canvas{margin:0 auto}
+footer{background:#16365c;color:#cfe0f2;text-align:center;padding:20px 16px;font-size:14px}
+footer a{color:#fff;margin:0 8px}
+footer p{margin:8px 0 0;color:#9db8d2}
+@media(max-width:600px){h1{font-size:22px}header a{font-size:23px}}
+</style></head>
+<body>
+<header><a href="/">Free Tools Hub</a><p>Free online tools, no signup, no download</p></header>
+<nav><a href="/">Home</a><a href="/p/about.html">About</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/contact.html">Contact</a></nav>
+<main>
+<h1>QR Code Generator</h1>
+<p>Type any text or web link below and get a QR code instantly. You can download the QR code as a picture and print it or share it anywhere.</p>
+<div class="card">
+<label for="qrText">Text or link</label>
+<textarea id="qrText" placeholder="Type text or paste a link, for example https://example.com">https://example.com</textarea>
+<label for="qrSize">Size</label>
+<select id="qrSize">
+<option value="128">Small (128 px)</option>
+<option value="200" selected>Medium (200 px)</option>
+<option value="256">Large (256 px)</option>
+</select>
+<button onclick="makeQR()">Generate QR Code</button>
+<div id="qrcode"></div>
+<div id="qrMsg" class="result" style="display:none"></div>
+<button class="secondary" id="dlBtn" onclick="downloadQR()" style="display:none">Download QR Code</button>
+</div>
+<h2>How to use it</h2>
+<p>Enter the text or link you want to share, press "Generate QR Code", and point any phone camera at the code to open it. The code is made in your browser — nothing you type is sent to a server.</p>
+</main>
+<footer><a href="/">Home</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/about.html">About</a><a href="/p/contact.html">Contact</a><p>© 2026 Free Tools Hub — Free online tools for everyone.</p></footer>
+<script>
+function makeQR(){
+  var text=document.getElementById('qrText').value.trim();
+  var size=parseInt(document.getElementById('qrSize').value,10);
+  var box=document.getElementById('qrcode');
+  var msg=document.getElementById('qrMsg');
+  var dl=document.getElementById('dlBtn');
+  box.innerHTML='';
+  if(!text){msg.style.display='block';msg.textContent='Please type some text or a link first.';dl.style.display='none';return;}
+  msg.style.display='none';
+  new QRCode(box,{text:text,width:size,height:size,correctLevel:QRCode.CorrectLevel.M});
+  dl.style.display='inline-block';
+}
+function downloadQR(){
+  var box=document.getElementById('qrcode');
+  var img=box.querySelector('img');
+  var canvas=box.querySelector('canvas');
+  var a=document.createElement('a');
+  a.download='qr-code.png';
+  if(canvas){a.href=canvas.toDataURL('image/png');}
+  else if(img){a.href=img.src;}
+  else{return;}
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+makeQR();
+</script>
+</body></html>

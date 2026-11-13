@@ -1,0 +1,76 @@
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Arial,sans-serif;margin:0;background:#f4f6f8;color:#1a1a1a;line-height:1.6}
+header{background:#16365c;color:#fff;padding:22px 16px;text-align:center}
+header a{color:#fff;font-size:26px;font-weight:800;text-decoration:none}
+header p{margin:4px 0 0;color:#cfe0f2;font-size:15px}
+nav{background:#0f2a47;padding:10px 16px;text-align:center}
+nav a{color:#dbe9f7;text-decoration:none;margin:0 8px;font-size:14px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+h1{font-size:25px;line-height:1.3}
+.card{background:#fff;border:1px solid #dde3e8;border-radius:10px;padding:20px;margin:18px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #b9c4ce;border-radius:6px;font-size:16px}
+textarea{min-height:160px;resize:vertical}
+button{background:#16365c;color:#fff;border:0;border-radius:6px;padding:11px 20px;font-size:16px;cursor:pointer;margin:8px 8px 0 0}
+button.secondary{background:#e7edf2;color:#16365c}
+.stats{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}
+.stat{background:#eef2f7;border-radius:6px;padding:10px 14px;min-width:120px;flex:1}
+.stat .n{font-size:22px;font-weight:700;color:#16365c}
+.stat .l{font-size:13px;color:#555}
+footer{background:#16365c;color:#cfe0f2;text-align:center;padding:20px 16px;font-size:14px}
+footer a{color:#fff;margin:0 8px}
+footer p{margin:8px 0 0;color:#9db8d2}
+@media(max-width:600px){h1{font-size:22px}header a{font-size:23px}}
+</style>
+<header><a href="/">Free Tools Hub</a><p>Free online tools, no signup, no download</p></header>
+<nav><a href="/">Home</a><a href="/p/about.html">About</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/contact.html">Contact</a></nav>
+<main>
+<h1>Word &amp; Character Counter</h1>
+<p>Paste your text below and see the counts update live as you type — useful for essays, social media posts, and anything with a word limit.</p>
+<div class="card">
+<label for="wcText">Your text</label>
+<textarea id="wcText" placeholder="Type or paste your text here..." oninput="countWords()"></textarea>
+<div class="stats">
+<div class="stat"><div class="n" id="wWords">0</div><div class="l">Words</div></div>
+<div class="stat"><div class="n" id="wChars">0</div><div class="l">Characters</div></div>
+<div class="stat"><div class="n" id="wCharsNoSpace">0</div><div class="l">Characters (no spaces)</div></div>
+<div class="stat"><div class="n" id="wSentences">0</div><div class="l">Sentences</div></div>
+<div class="stat"><div class="n" id="wParas">0</div><div class="l">Paragraphs</div></div>
+</div>
+<button class="secondary" onclick="document.getElementById('wcText').value='';countWords();">Clear Text</button>
+</div>
+<h2>How counting works</h2>
+<p>Words are groups of letters or numbers separated by spaces. Sentences end with a full stop, question mark or exclamation mark. Paragraphs are blocks of text separated by blank lines. Everything is counted in your browser — your text is never uploaded.</p>
+</main>
+<footer><a href="/">Home</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/about.html">About</a><a href="/p/contact.html">Contact</a><p>© 2026 Free Tools Hub — Free online tools for everyone.</p></footer>
+<script>
+function countWords(){
+  var t=document.getElementById('wcText').value;
+  var words=t.trim()==='' ? 0 : t.trim().split(/\s+/).length;
+  var chars=t.length;
+  var charsNoSpace=t.replace(/\s/g,'').length;
+  var sentences=t.trim()==='' ? 0 : t.split(/[.!?]+/).filter(function(s){return s.trim().length>0;}).length;
+  var paras=t.trim()==='' ? 0 : t.split(/\n+/).filter(function(s){return s.trim().length>0;}).length;
+  document.getElementById('wWords').textContent=words;
+  document.getElementById('wChars').textContent=chars;
+  document.getElementById('wCharsNoSpace').textContent=charsNoSpace;
+  document.getElementById('wSentences').textContent=sentences;
+  document.getElementById('wParas').textContent=paras;
+}
+</script>
+<script>
+function countWords(){
+  var t=document.getElementById('wcText').value;
+  var words=t.trim()==='' ? 0 : t.trim().split(/\s+/).length;
+  var chars=t.length;
+  var charsNoSpace=t.replace(/\s/g,'').length;
+  var sentences=t.trim()==='' ? 0 : t.split(/[.!?]+/).filter(function(s){return s.trim().length>0;}).length;
+  var paras=t.trim()==='' ? 0 : t.split(/\n+/).filter(function(s){return s.trim().length>0;}).length;
+  document.getElementById('wWords').textContent=words;
+  document.getElementById('wChars').textContent=chars;
+  document.getElementById('wCharsNoSpace').textContent=charsNoSpace;
+  document.getElementById('wSentences').textContent=sentences;
+  document.getElementById('wParas').textContent=paras;
+}
+</script>

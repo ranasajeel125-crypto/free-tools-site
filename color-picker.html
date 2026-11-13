@@ -1,0 +1,82 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Color Picker — Pick a Color &amp; Get HEX and RGB Values | Free Tools Hub</title>
+<meta name="description" content="Free color picker: pick any color and instantly see its HEX and RGB values, ready to copy for your design, website or project. No signup.">
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Arial,sans-serif;margin:0;background:#f4f6f8;color:#1a1a1a;line-height:1.6}
+header{background:#16365c;color:#fff;padding:22px 16px;text-align:center}
+header a{color:#fff;font-size:26px;font-weight:800;text-decoration:none}
+header p{margin:4px 0 0;color:#cfe0f2;font-size:15px}
+nav{background:#0f2a47;padding:10px 16px;text-align:center}
+nav a{color:#dbe9f7;text-decoration:none;margin:0 8px;font-size:14px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+h1{font-size:25px;line-height:1.3}
+.card{background:#fff;border:1px solid #dde3e8;border-radius:10px;padding:20px;margin:18px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #b9c4ce;border-radius:6px;font-size:16px}
+input[type=color]{height:60px;padding:4px;cursor:pointer}
+button{background:#16365c;color:#fff;border:0;border-radius:6px;padding:11px 20px;font-size:16px;cursor:pointer;margin:8px 8px 0 0}
+button.secondary{background:#e7edf2;color:#16365c}
+.result{background:#eef6ee;border:1px solid #bcd8bc;border-radius:6px;padding:14px;margin-top:16px;font-size:18px}
+.result b{color:#16365c}
+#colorPreview{width:100%;height:90px;border-radius:6px;border:1px solid #b9c4ce;margin-top:12px}
+footer{background:#16365c;color:#cfe0f2;text-align:center;padding:20px 16px;font-size:14px}
+footer a{color:#fff;margin:0 8px}
+footer p{margin:8px 0 0;color:#9db8d2}
+@media(max-width:600px){h1{font-size:22px}header a{font-size:23px}}
+</style></head>
+<body>
+<header><a href="/">Free Tools Hub</a><p>Free online tools, no signup, no download</p></header>
+<nav><a href="/">Home</a><a href="/p/about.html">About</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/contact.html">Contact</a></nav>
+<main>
+<h1>Color Picker &amp; HEX to RGB Converter</h1>
+<p>Pick any color below, or type a HEX code, and see its HEX and RGB values instantly — ready to copy into your design, website or document.</p>
+<div class="card">
+<label for="colorInput">Pick a color</label>
+<input type="color" id="colorInput" value="#16365c" oninput="fromPicker()">
+<label for="hexInput">Or type a HEX code</label>
+<input type="text" id="hexInput" value="#16365c" maxlength="7" oninput="fromHex()">
+<div id="colorPreview" style="background:#16365c"></div>
+<div class="result" id="colorOut">HEX: <b>#16365C</b><br>RGB: <b>rgb(22, 54, 92)</b></div>
+<button class="secondary" onclick="copyVal('hex')">Copy HEX</button>
+<button class="secondary" onclick="copyVal('rgb')">Copy RGB</button>
+</div>
+<h2>What are HEX and RGB?</h2>
+<p>HEX is a six-digit code that describes a color, such as #FF0000 for red. RGB describes the same color as three numbers for red, green and blue, such as rgb(255, 0, 0). Both are used in websites, apps and design software.</p>
+</main>
+<footer><a href="/">Home</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/about.html">About</a><a href="/p/contact.html">Contact</a><p>© 2026 Free Tools Hub — Free online tools for everyone.</p></footer>
+<script>
+function hexToRgb(hex){
+  hex=hex.replace('#','');
+  if(hex.length===3){hex=hex.split('').map(function(c){return c+c;}).join('');}
+  var n=parseInt(hex,16);
+  return {r:(n>>16)&255,g:(n>>8)&255,b:n&255};
+}
+function showColor(hex){
+  hex=hex.toUpperCase();
+  var rgb=hexToRgb(hex);
+  document.getElementById('colorPreview').style.background=hex;
+  document.getElementById('colorOut').innerHTML='HEX: <b>'+hex+'</b><br>RGB: <b>rgb('+rgb.r+', '+rgb.g+', '+rgb.b+')</b>';
+}
+function fromPicker(){
+  var hex=document.getElementById('colorInput').value;
+  document.getElementById('hexInput').value=hex;
+  showColor(hex);
+}
+function fromHex(){
+  var hex=document.getElementById('hexInput').value.trim();
+  if(/^#?[0-9a-fA-F]{3}([0-9a-fA-F]{3})?$/.test(hex)){
+    if(hex.charAt(0)!=='#')hex='#'+hex;
+    document.getElementById('colorInput').value=hex;
+    showColor(hex);
+  }
+}
+function copyVal(kind){
+  var hex=document.getElementById('hexInput').value.toUpperCase();
+  var rgb=hexToRgb(hex);
+  var text=kind==='hex'?hex:'rgb('+rgb.r+', '+rgb.g+', '+rgb.b+')';
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text);}
+  else{var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);}
+}
+</script>
+</body></html>
