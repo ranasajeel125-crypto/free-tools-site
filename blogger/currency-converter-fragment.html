@@ -1,0 +1,96 @@
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Arial,sans-serif;margin:0;background:#f4f6f8;color:#1a1a1a;line-height:1.6}
+header{background:#16365c;color:#fff;padding:22px 16px;text-align:center}
+header a{color:#fff;font-size:26px;font-weight:800;text-decoration:none}
+header p{margin:4px 0 0;color:#cfe0f2;font-size:15px}
+nav{background:#0f2a47;padding:10px 16px;text-align:center}
+nav a{color:#dbe9f7;text-decoration:none;margin:0 8px;font-size:14px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+h1{font-size:25px;line-height:1.3}
+.card{background:#fff;border:1px solid #dde3e8;border-radius:10px;padding:20px;margin:18px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #b9c4ce;border-radius:6px;font-size:16px}
+button{background:#16365c;color:#fff;border:0;border-radius:6px;padding:11px 20px;font-size:16px;cursor:pointer;margin:8px 8px 0 0}
+.result{background:#eef6ee;border:1px solid #bcd8bc;border-radius:6px;padding:14px;margin-top:16px;font-size:18px}
+.result b{color:#16365c}
+.result .big{font-size:22px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
+.row>div{flex:1;min-width:140px}
+.swap{flex:0 0 auto !important;min-width:0 !important}
+.note{font-size:14px;color:#555;margin-top:10px}
+footer{background:#16365c;color:#cfe0f2;text-align:center;padding:20px 16px;font-size:14px}
+footer a{color:#fff;margin:0 8px}
+footer p{margin:8px 0 0;color:#9db8d2}
+@media(max-width:600px){h1{font-size:22px}header a{font-size:23px}}
+</style>
+<header><a href="/">Free Tools Hub</a><p>Free online tools, no signup, no download</p></header>
+<nav><a href="/">Home</a><a href="/p/about.html">About</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/contact.html">Contact</a></nav>
+<main>
+<h1>Currency Converter</h1>
+<p class="intro">Convert money between world currencies with live exchange rates — USD, PKR, INR, GBP, EUR, AED, SAR and more. Free online currency converter, no signup. Rates are fetched live, so the result always uses the latest available rate.</p>
+<p>Useful for travel, online shopping, freelancing payments and checking how much your money is worth in another currency.</p>
+<div class="card">
+<label for="ccAmount">Amount</label>
+<input type="number" id="ccAmount" placeholder="e.g. 100" min="0" value="100">
+<div class="row">
+<div><label for="ccFrom">From</label><select id="ccFrom"></select></div>
+<div class="swap"><button type="button" onclick="swapCurrencies()" title="Swap currencies">&#8646;</button></div>
+<div><label for="ccTo">To</label><select id="ccTo"></select></div>
+</div>
+<button onclick="convertCurrency()">Convert</button>
+<div id="ccOut" class="result" style="display:none"></div>
+<p class="note" id="ccRateNote">Loading live exchange rates…</p>
+</div>
+<h2>How to use</h2><ol><li>Enter the amount and pick the two currencies.</li><li>Click Convert to see the converted amount and the exchange rate used.</li><li>Use the swap button (&#8646;) to reverse the currencies in one click.</li></ol><h2>FAQs</h2><p><b>Where do the rates come from?</b><br>Rates are fetched live from a free public exchange-rate service (exchangerate-api.com) each time the page loads. If the rates cannot be loaded, the converter will tell you — it never guesses a rate.</p><p><b>Is the converted amount exact?</b><br>The rate shown is the mid-market reference rate. Banks and money-transfer services add their own fee or margin, so the amount you actually receive may be slightly less.</p><p><b>Is it free?</b><br>Yes, completely free, no signup needed.</p>
+</main>
+<footer><a href="/">Home</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/about.html">About</a><a href="/p/contact.html">Contact</a><p>© 2026 Free Tools Hub — Free online tools for everyone.</p></footer>
+<script>
+var CC_CURRENCIES=['USD','PKR','INR','GBP','EUR','AED','SAR','CNY','JPY','AUD','CAD','TRY','BDT','LKR','NPR','QAR','KWD','OMR','BHD','MYR','SGD','THB','IDR','PHP','KRW','CHF','NZD','ZAR','NGN','KES'];
+var ccRates=null, ccBase='USD', ccDate='';
+function ccFill(){
+  var f=document.getElementById('ccFrom'), t=document.getElementById('ccTo');
+  CC_CURRENCIES.forEach(function(c){
+    var o1=document.createElement('option'); o1.value=c; o1.textContent=c; f.appendChild(o1);
+    var o2=document.createElement('option'); o2.value=c; o2.textContent=c; t.appendChild(o2);
+  });
+  f.value='USD'; t.value='PKR';
+}
+function ccLoad(){
+  fetch('https://api.exchangerate-api.com/v4/latest/USD')
+    .then(function(r){return r.json();})
+    .then(function(d){
+      ccRates=d.rates; ccDate=d.date||'';
+      document.getElementById('ccRateNote').textContent='Live rates, base USD'+(ccDate?' — updated '+ccDate:'')+'. Source: exchangerate-api.com.';
+      convertCurrency();
+    })
+    .catch(function(){
+      document.getElementById('ccRateNote').textContent='Live rates could not be loaded — please check your internet connection and reload the page.';
+      var out=document.getElementById('ccOut');
+      out.style.display='block'; out.textContent='Exchange rates are unavailable right now. Please reload the page and try again.';
+    });
+}
+function convertCurrency(){
+  var amt=parseFloat(document.getElementById('ccAmount').value);
+  var from=document.getElementById('ccFrom').value;
+  var to=document.getElementById('ccTo').value;
+  var out=document.getElementById('ccOut');
+  if(isNaN(amt)||amt<0){out.style.display='block';out.textContent='Please enter a valid amount.';return;}
+  if(!ccRates){out.style.display='block';out.textContent='Exchange rates are still loading — please wait a moment and try again.';return;}
+  var inUsd=amt/ccRates[from];
+  var result=inUsd*ccRates[to];
+  var rate=ccRates[to]/ccRates[from];
+  out.style.display='block';
+  out.innerHTML='<span class="big"><b>'+amt.toLocaleString('en-US')+' '+from+'</b> = <b>'+result.toLocaleString('en-US',{maximumFractionDigits:2})+' '+to+'</b></span><br>1 '+from+' = '+rate.toLocaleString('en-US',{maximumFractionDigits:4})+' '+to+'<br>1 '+to+' = '+(1/rate).toLocaleString('en-US',{maximumFractionDigits:4})+' '+from;
+}
+function swapCurrencies(){
+  var f=document.getElementById('ccFrom'), t=document.getElementById('ccTo');
+  var tmp=f.value; f.value=t.value; t.value=tmp;
+  convertCurrency();
+}
+ccFill();
+ccLoad();
+document.getElementById('ccFrom').addEventListener('change',convertCurrency);
+document.getElementById('ccTo').addEventListener('change',convertCurrency);
+document.getElementById('ccAmount').addEventListener('input',convertCurrency);
+</script>

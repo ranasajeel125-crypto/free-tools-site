@@ -1,0 +1,65 @@
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Arial,sans-serif;margin:0;background:#f4f6f8;color:#1a1a1a;line-height:1.6}
+header{background:#16365c;color:#fff;padding:22px 16px;text-align:center}
+header a{color:#fff;font-size:26px;font-weight:800;text-decoration:none}
+header p{margin:4px 0 0;color:#cfe0f2;font-size:15px}
+nav{background:#0f2a47;padding:10px 16px;text-align:center}
+nav a{color:#dbe9f7;text-decoration:none;margin:0 8px;font-size:14px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+h1{font-size:25px;line-height:1.3}
+.card{background:#fff;border:1px solid #dde3e8;border-radius:10px;padding:20px;margin:18px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #b9c4ce;border-radius:6px;font-size:16px}
+button{background:#16365c;color:#fff;border:0;border-radius:6px;padding:11px 20px;font-size:16px;cursor:pointer;margin:8px 8px 0 0}
+.result{background:#eef6ee;border:1px solid #bcd8bc;border-radius:6px;padding:14px;margin-top:16px;font-size:18px}
+.result b{color:#16365c}
+.result .big{font-size:22px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>div{flex:1;min-width:140px}
+footer{background:#16365c;color:#cfe0f2;text-align:center;padding:20px 16px;font-size:14px}
+footer a{color:#fff;margin:0 8px}
+footer p{margin:8px 0 0;color:#9db8d2}
+@media(max-width:600px){h1{font-size:22px}header a{font-size:23px}}
+</style>
+<header><a href="/">Free Tools Hub</a><p>Free online tools, no signup, no download</p></header>
+<nav><a href="/">Home</a><a href="/p/about.html">About</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/contact.html">Contact</a></nav>
+<main>
+<h1>Loan / EMI Calculator</h1>
+<p class="intro">Calculate your monthly EMI (Equated Monthly Installment) for a home loan, car loan or personal loan. Free online EMI calculator — enter the loan amount, interest rate and tenure to see your monthly payment, total interest and total amount payable. No signup.</p>
+<p>Planning a loan? Work out exactly what you will pay every month before you borrow, so there are no surprises later.</p>
+<div class="card">
+<div class="row">
+<div><label for="loanAmount">Loan Amount</label><input type="number" id="loanAmount" placeholder="e.g. 1000000" min="0"></div>
+<div><label for="loanCurrency">Currency</label><select id="loanCurrency"><option value="Rs.">PKR — Rs.</option><option value="$">USD — $</option><option value="₹">INR — ₹</option><option value="£">GBP — £</option><option value="€">EUR — €</option><option value="AED ">AED</option><option value="SAR ">SAR</option></select></div>
+</div>
+<div class="row">
+<div><label for="loanRate">Annual Interest Rate (%)</label><input type="number" id="loanRate" placeholder="e.g. 12" min="0" step="0.01"></div>
+<div><label for="loanYears">Loan Tenure (Years)</label><input type="number" id="loanYears" placeholder="e.g. 5" min="0" step="0.5"></div>
+</div>
+<button onclick="calcEMI()">Calculate EMI</button>
+<div id="emiOut" class="result" style="display:none"></div>
+</div>
+<h2>How to use</h2><ol><li>Enter the loan amount, the annual interest rate and the tenure in years.</li><li>Click Calculate EMI to see your monthly installment, total interest and total amount payable.</li><li>Try a shorter tenure or a lower rate to see how much interest you can save.</li></ol><h2>FAQs</h2><p><b>What is EMI?</b><br>EMI is the fixed amount you pay every month towards your loan. It covers both the loan amount and the interest, and it stays the same for the whole tenure when the rate is fixed.</p><p><b>How is EMI calculated?</b><br>EMI = P &times; r &times; (1+r)<sup>n</sup> &divide; ((1+r)<sup>n</sup> &minus; 1), where P is the loan amount, r is the monthly interest rate and n is the number of monthly installments.</p><p><b>Is it free?</b><br>Yes, completely free, no signup needed. The calculation happens in your browser and nothing is sent to a server.</p>
+</main>
+<footer><a href="/">Home</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/about.html">About</a><a href="/p/contact.html">Contact</a><p>© 2026 Free Tools Hub — Free online tools for everyone.</p></footer>
+<script>
+function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:2});}
+function calcEMI(){
+  var P=parseFloat(document.getElementById('loanAmount').value);
+  var annual=parseFloat(document.getElementById('loanRate').value);
+  var years=parseFloat(document.getElementById('loanYears').value);
+  var cur=document.getElementById('loanCurrency').value;
+  var out=document.getElementById('emiOut');
+  if(isNaN(P)||isNaN(annual)||isNaN(years)||P<=0||years<=0){out.style.display='block';out.textContent='Please enter a valid loan amount, interest rate and tenure.';return;}
+  var r=annual/100/12;
+  var n=Math.round(years*12);
+  var emi;
+  if(r===0){emi=P/n;}
+  else{var f=Math.pow(1+r,n);emi=P*r*f/(f-1);}
+  var total=emi*n;
+  var interest=total-P;
+  out.style.display='block';
+  out.innerHTML='<span class="big">Monthly EMI: <b>'+cur+fmt(emi)+'</b></span><br>Total interest payable: <b>'+cur+fmt(interest)+'</b><br>Total amount payable: <b>'+cur+fmt(total)+'</b><br><span style="font-size:15px;color:#555">Over '+n+' monthly installments ('+years+' years) at '+annual+'% per year.</span>';
+}
+</script>
