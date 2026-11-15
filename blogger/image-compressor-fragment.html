@@ -1,0 +1,86 @@
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Arial,sans-serif;margin:0;background:#f4f6f8;color:#1a1a1a;line-height:1.6}
+header{background:#16365c;color:#fff;padding:22px 16px;text-align:center}
+header a{color:#fff;font-size:26px;font-weight:800;text-decoration:none}
+header p{margin:4px 0 0;color:#cfe0f2;font-size:15px}
+nav{background:#0f2a47;padding:10px 16px;text-align:center}
+nav a{color:#dbe9f7;text-decoration:none;margin:0 8px;font-size:14px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+h1{font-size:25px;line-height:1.3}
+.card{background:#fff;border:1px solid #dde3e8;border-radius:10px;padding:20px;margin:18px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select{width:100%;padding:10px;border:1px solid #b9c4ce;border-radius:6px;font-size:16px}
+button{background:#16365c;color:#fff;border:0;border-radius:6px;padding:11px 20px;font-size:16px;cursor:pointer;margin:8px 8px 0 0}
+.result{background:#eef6ee;border:1px solid #bcd8bc;border-radius:6px;padding:14px;margin-top:16px;font-size:16px}
+.result b{color:#16365c}
+.thumb{max-width:100%;border:1px solid #dde3e8;border-radius:6px;margin-top:8px}
+.fileitem{border-top:1px solid #e3e8ec;padding:12px 0}
+.fileitem:first-child{border-top:0}
+footer{background:#16365c;color:#cfe0f2;text-align:center;padding:20px 16px;font-size:14px}
+footer a{color:#fff;margin:0 8px}
+footer p{margin:8px 0 0;color:#9db8d2}
+@media(max-width:600px){h1{font-size:22px}header a{font-size:23px}}
+</style>
+<header><a href="/">Free Tools Hub</a><p>Free online tools, no signup, no download</p></header>
+<nav><a href="/">Home</a><a href="/p/about.html">About</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/contact.html">Contact</a></nav>
+<main>
+<h1>Image Compressor</h1>
+<p class="intro">Compress images online for free — shrink JPG, PNG and WebP photos to a smaller file size without losing much quality. Perfect for websites, WhatsApp, email attachments and online forms. No signup, no upload: your images never leave your browser.</p>
+<p>Large photos slow down websites and fail on forms with size limits. This tool compresses them right on your device, so your pictures stay private.</p>
+<div class="card">
+<label for="imgFiles">Choose images (JPG, PNG, WebP)</label>
+<input type="file" id="imgFiles" accept="image/jpeg,image/png,image/webp" multiple>
+<label for="imgQuality">Quality: <span id="qualityVal">80%</span></label>
+<input type="range" id="imgQuality" min="10" max="95" value="80" oninput="document.getElementById('qualityVal').textContent=this.value+'%'">
+<label for="imgFormat">Output format</label>
+<select id="imgFormat"><option value="image/jpeg">JPG (smallest, best for photos)</option><option value="image/webp">WebP (smaller, modern browsers)</option><option value="image/png">PNG (keeps transparency)</option></select>
+<label for="imgMaxWidth">Max width (pixels, optional — leave blank to keep original size)</label>
+<input type="number" id="imgMaxWidth" placeholder="e.g. 1200" min="100">
+<button onclick="compressImages()">Compress Images</button>
+<div id="imgOut"></div>
+</div>
+<h2>How to use</h2><ol><li>Choose one or more images from your device.</li><li>Pick a quality — 80% is a good balance; lower means a smaller file.</li><li>Click Compress Images, then download each compressed image below.</li></ol><h2>FAQs</h2><p><b>Are my images uploaded anywhere?</b><br>No. Compression happens entirely in your browser — your photos never leave your device.</p><p><b>Which format should I choose?</b><br>JPG is smallest for photos. WebP is even smaller and works in all modern browsers. PNG keeps transparency but makes bigger files.</p><p><b>How much smaller will my image get?</b><br>A typical phone photo (3–5 MB) at 80% quality and 1200 px wide becomes roughly 150–400 KB — about 90% smaller — with barely visible quality loss.</p><p><b>Is it free?</b><br>Yes, completely free, no signup needed.</p>
+</main>
+<footer><a href="/">Home</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/about.html">About</a><a href="/p/contact.html">Contact</a><p>© 2026 Free Tools Hub — Free online tools for everyone.</p></footer>
+<script>
+function fmtSize(b){if(b<1024)return b+' B';if(b<1048576)return (b/1024).toFixed(1)+' KB';return (b/1048576).toFixed(2)+' MB';}
+function compressImages(){
+  var files=document.getElementById('imgFiles').files;
+  var out=document.getElementById('imgOut');
+  if(!files.length){out.innerHTML='<div class="result">Please choose at least one image first.</div>';return;}
+  var quality=parseInt(document.getElementById('imgQuality').value,10)/100;
+  var format=document.getElementById('imgFormat').value;
+  var maxW=parseInt(document.getElementById('imgMaxWidth').value,10);
+  out.innerHTML='<div class="result">Compressing '+files.length+' image(s)...</div>';
+  var html='';
+  var done=0;
+  Array.prototype.forEach.call(files,function(file){
+    var reader=new FileReader();
+    reader.onload=function(e){
+      var img=new Image();
+      img.onload=function(){
+        var w=img.width,h=img.height;
+        if(maxW&&w>maxW){h=Math.round(h*maxW/w);w=maxW;}
+        var canvas=document.createElement('canvas');
+        canvas.width=w;canvas.height=h;
+        var ctx=canvas.getContext('2d');
+        if(format==='image/jpeg'){ctx.fillStyle='#ffffff';ctx.fillRect(0,0,w,h);}
+        ctx.drawImage(img,0,0,w,h);
+        canvas.toBlob(function(blob){
+          done++;
+          var saved=file.size>0?Math.round((1-blob.size/file.size)*100):0;
+          var url=URL.createObjectURL(blob);
+          var ext=format==='image/png'?'png':(format==='image/webp'?'webp':'jpg');
+          var name=file.name.replace(/\.[^.]+$/,'')+'-compressed.'+ext;
+          html+='<div class="fileitem"><b>'+file.name+'</b><br>Original: '+fmtSize(file.size)+' &rarr; Compressed: <b>'+fmtSize(blob.size)+'</b> ('+saved+'% smaller)<br><img class="thumb" src="'+url+'" alt="Compressed preview"><br><a href="'+url+'" download="'+name+'"><button type="button">Download '+name+'</button></a></div>';
+          if(done===files.length){out.innerHTML='<div class="result"><b>Done!</b> '+files.length+' image(s) compressed in your browser.</div>'+html;}
+        },format,quality);
+      };
+      img.onerror=function(){done++;if(done===files.length){out.innerHTML='<div class="result">Some files could not be read as images.</div>'+html;}};
+      img.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+</script>

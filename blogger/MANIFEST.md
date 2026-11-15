@@ -6,7 +6,7 @@ For each page: create a Blogger Page with the exact Page Title below (so the slu
 
 | Page Title | Slug | Search Description | Fragment file |
 |---|---|---|---|
-| Home | home | Free Tools Hub offers 12 free online tools that run in your browser: QR code generator, password generator, age calculator, word counter, case converter, percentage calculator, BMI calculator, random number generator, color picker, unit converter, loan EMI calculator and currency converter. No signup, no download. | homepage-fragment.html |
+| Home | home | Free Tools Hub offers 14 free online tools that run in your browser: QR code generator, password generator, age calculator, word counter, case converter, percentage calculator, BMI calculator, random number generator, color picker, unit converter, loan EMI calculator, currency converter, image compressor and merge PDF. No signup, no download. | homepage-fragment.html |
 | QR Code Generator | qr-code-generator | Free QR code generator: type any text or web link and get a QR code instantly. Download it as a picture. No signup, no download, free to use. | qr-code-generator-fragment.html |
 | Password Generator | password-generator | Free password generator: create a strong random password with the length and characters you choose. Copy it with one click. No signup, passwords are made in your browser. | password-generator-fragment.html |
 | Age Calculator | age-calculator | Free age calculator: enter your date of birth and find your exact age in years, months and days, plus how many days you have lived. No signup, free to use. | age-calculator-fragment.html |
@@ -19,5 +19,7 @@ For each page: create a Blogger Page with the exact Page Title below (so the slu
 | Unit Converter | unit-converter | Free unit converter: convert length (km, metres, miles, feet), weight (kg, pounds) and temperature (Celsius, Fahrenheit) instantly. No signup. | unit-converter-fragment.html |
 | Loan / EMI Calculator | loan-emi-calculator | Free loan EMI calculator: enter the loan amount, interest rate and tenure to find your monthly installment, total interest and total amount payable. No signup. | loan-emi-calculator-fragment.html |
 | Currency Converter | currency-converter | Free currency converter with live exchange rates: convert USD, PKR, INR, GBP, EUR, AED, SAR and more. No signup. | currency-converter-fragment.html |
+| Image Compressor | image-compressor | Free image compressor: shrink JPG, PNG and WebP photos to a smaller size in your browser. No upload, no signup, free to use. | image-compressor-fragment.html |
+| Merge PDF | merge-pdf | Free merge PDF tool: combine multiple PDF files into one PDF in the order you choose. No upload, no signup, free to use. | merge-pdf-fragment.html |
 
 Raw fragment URLs: https://raw.githubusercontent.com/ranasajeel125-crypto/free-tools-site/master/blogger/<fragment file>
