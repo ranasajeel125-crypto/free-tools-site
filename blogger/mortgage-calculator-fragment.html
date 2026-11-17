@@ -1,0 +1,67 @@
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Arial,sans-serif;margin:0;background:#f4f6f8;color:#1a1a1a;line-height:1.6}
+header{background:#16365c;color:#fff;padding:22px 16px;text-align:center}
+header a{color:#fff;font-size:26px;font-weight:800;text-decoration:none}
+header p{margin:4px 0 0;color:#cfe0f2;font-size:15px}
+nav{background:#0f2a47;padding:10px 16px;text-align:center}
+nav a{color:#dbe9f7;text-decoration:none;margin:0 8px;font-size:14px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+h1{font-size:25px;line-height:1.3}
+.card{background:#fff;border:1px solid #dde3e8;border-radius:10px;padding:20px;margin:18px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #b9c4ce;border-radius:6px;font-size:16px}
+button{background:#16365c;color:#fff;border:0;border-radius:6px;padding:11px 20px;font-size:16px;cursor:pointer;margin:8px 8px 0 0}
+.result{background:#eef6ee;border:1px solid #bcd8bc;border-radius:6px;padding:14px;margin-top:16px;font-size:18px}
+.result b{color:#16365c}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>div{flex:1;min-width:140px}
+footer{background:#16365c;color:#cfe0f2;text-align:center;padding:20px 16px;font-size:14px}
+footer a{color:#fff;margin:0 8px}
+footer p{margin:8px 0 0;color:#9db8d2}
+@media(max-width:600px){h1{font-size:22px}header a{font-size:23px}}
+</style>
+<header><a href="/">Free Tools Hub</a><p>Free online tools, no signup, no download</p></header>
+<nav><a href="/">Home</a><a href="/p/about.html">About</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/contact.html">Contact</a></nav>
+<main>
+<h1>Mortgage Calculator</h1>
+<p class="intro">Work out your monthly mortgage payment from the home price, down payment, interest rate and loan term. Free mortgage calculator — see your loan amount, total interest and total cost. No signup.</p>
+<p>Enter the home price and your down payment in the same currency, then the annual interest rate and how many years the loan runs for.</p>
+<div class="card">
+<label for="mtgPrice">Home price</label>
+<input type="number" id="mtgPrice" placeholder="e.g. 300000" min="0">
+<label for="mtgDown">Down payment</label>
+<input type="number" id="mtgDown" placeholder="e.g. 60000" min="0">
+<div class="row">
+<div><label for="mtgRate">Annual interest rate (%)</label><input type="number" id="mtgRate" placeholder="e.g. 6.5" min="0" step="0.01"></div>
+<div><label for="mtgYears">Loan term (years)</label><select id="mtgYears"><option value="10">10 years</option><option value="15">15 years</option><option value="20">20 years</option><option value="25">25 years</option><option value="30" selected>30 years</option></select></div>
+</div>
+<button onclick="calcMortgage()">Calculate Payment</button>
+<div id="mtgOut" class="result" style="display:none"></div>
+</div>
+<h2>How the payment is worked out</h2>
+<p>Your loan amount is the home price minus your down payment. The monthly payment is worked out with the standard fixed-rate formula, using the monthly interest rate (annual rate divided by 12) and the total number of monthly payments. A bigger down payment or a lower rate means a smaller monthly payment and less interest overall; a longer term means a smaller monthly payment but much more interest in total. Your numbers stay in your browser and are never uploaded.</p>
+<h2>How to use</h2><ol><li>Enter the home price and the down payment you will pay.</li><li>Enter the annual interest rate and pick the loan term.</li><li>Click Calculate Payment to see your monthly payment, total interest and total cost.</li></ol><h2>FAQs</h2><p><b>Does this include taxes and insurance?</b><br>No — this covers principal and interest only. Property taxes, home insurance and any other fees are extra, so your real monthly cost will be higher.</p><p><b>What is a good down payment?</b><br>20% is the usual target: it avoids extra insurance on many loans and keeps the monthly payment lower. A smaller down payment is possible, but the loan — and the interest — will be bigger.</p><p><b>Should I choose a shorter or longer term?</b><br>A shorter term (15 years) means a higher monthly payment but far less interest overall. A longer term (30 years) means a lower monthly payment but much more interest paid in total.</p>
+</main>
+<footer><a href="/">Home</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/about.html">About</a><a href="/p/contact.html">Contact</a><p>© 2026 Free Tools Hub — Free online tools for everyone.</p></footer>
+<script>
+function calcMortgage(){
+  var price=parseFloat(document.getElementById('mtgPrice').value);
+  var down=parseFloat(document.getElementById('mtgDown').value);
+  var rate=parseFloat(document.getElementById('mtgRate').value);
+  var years=parseFloat(document.getElementById('mtgYears').value);
+  var out=document.getElementById('mtgOut');
+  if(isNaN(price)||isNaN(rate)||price<=0||rate<=0){out.style.display='block';out.textContent='Please enter a valid home price and interest rate.';return;}
+  if(isNaN(down)||down<0){down=0;}
+  if(down>=price){out.style.display='block';out.textContent='Your down payment must be less than the home price.';return;}
+  var loan=price-down;
+  var r=rate/100/12;
+  var n=years*12;
+  var monthly=loan*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
+  var total=monthly*n;
+  var interest=total-loan;
+  function fmt(x){return Math.round(x).toLocaleString('en-US');}
+  out.style.display='block';
+  out.innerHTML='Loan amount: <b>'+fmt(loan)+'</b><br>Monthly payment: <b>'+fmt(monthly)+'</b><br>Total interest: <b>'+fmt(interest)+'</b><br>Total amount payable: <b>'+fmt(total)+'</b>';
+}
+</script>

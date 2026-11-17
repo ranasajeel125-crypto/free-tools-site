@@ -1,0 +1,87 @@
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Arial,sans-serif;margin:0;background:#f4f6f8;color:#1a1a1a;line-height:1.6}
+header{background:#16365c;color:#fff;padding:22px 16px;text-align:center}
+header a{color:#fff;font-size:26px;font-weight:800;text-decoration:none}
+header p{margin:4px 0 0;color:#cfe0f2;font-size:15px}
+nav{background:#0f2a47;padding:10px 16px;text-align:center}
+nav a{color:#dbe9f7;text-decoration:none;margin:0 8px;font-size:14px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+h1{font-size:25px;line-height:1.3}
+.card{background:#fff;border:1px solid #dde3e8;border-radius:10px;padding:20px;margin:18px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #b9c4ce;border-radius:6px;font-size:16px}
+button{background:#16365c;color:#fff;border:0;border-radius:6px;padding:11px 20px;font-size:16px;cursor:pointer;margin:8px 8px 0 0}
+.result{background:#eef6ee;border:1px solid #bcd8bc;border-radius:6px;padding:14px;margin-top:16px;font-size:18px}
+.result b{color:#16365c}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>div{flex:1;min-width:140px}
+footer{background:#16365c;color:#cfe0f2;text-align:center;padding:20px 16px;font-size:14px}
+footer a{color:#fff;margin:0 8px}
+footer p{margin:8px 0 0;color:#9db8d2}
+@media(max-width:600px){h1{font-size:22px}header a{font-size:23px}}
+</style>
+<header><a href="/">Free Tools Hub</a><p>Free online tools, no signup, no download</p></header>
+<nav><a href="/">Home</a><a href="/p/about.html">About</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/contact.html">Contact</a></nav>
+<main>
+<h1>Zakat Calculator</h1>
+<p class="intro">Work out how much Zakat you owe at 2.5% of your zakatable wealth. Free Zakat calculator — enter your cash, gold, silver and business assets, minus what you owe. No signup.</p>
+<p>Enter all amounts in the same currency. For gold and silver, enter the weight you own and today's price per gram — the calculator works out the value and the Nisab for you.</p>
+<div class="card">
+<label for="zakCash">Cash in hand and in the bank</label>
+<input type="number" id="zakCash" placeholder="e.g. 500000" min="0">
+<div class="row">
+<div><label for="zakGoldG">Gold owned (grams)</label><input type="number" id="zakGoldG" placeholder="e.g. 50" min="0" step="0.01"></div>
+<div><label for="zakGoldP">Gold price per gram</label><input type="number" id="zakGoldP" placeholder="e.g. 25000" min="0" step="0.01"></div>
+</div>
+<div class="row">
+<div><label for="zakSilverG">Silver owned (grams)</label><input type="number" id="zakSilverG" placeholder="e.g. 100" min="0" step="0.01"></div>
+<div><label for="zakSilverP">Silver price per gram</label><input type="number" id="zakSilverP" placeholder="e.g. 3000" min="0" step="0.01"></div>
+</div>
+<label for="zakStock">Business goods / stock for trade (value)</label>
+<input type="number" id="zakStock" placeholder="e.g. 200000" min="0">
+<label for="zakOwed">Money owed to you that you expect to get back</label>
+<input type="number" id="zakOwed" placeholder="e.g. 50000" min="0">
+<label for="zakDebts">Debts and loans you owe (due within a year)</label>
+<input type="number" id="zakDebts" placeholder="e.g. 100000" min="0">
+<label for="zakNisab">Nisab basis</label>
+<select id="zakNisab">
+<option value="silver" selected>Silver Nisab — 612.36 grams of silver (lower threshold)</option>
+<option value="gold">Gold Nisab — 85 grams of gold</option>
+</select>
+<button onclick="calcZakat()">Calculate Zakat</button>
+<div id="zakOut" class="result" style="display:none"></div>
+</div>
+<h2>How Zakat works</h2>
+<p>Zakat is 2.5% of your zakatable wealth, due when your net wealth has been above the Nisab for one full lunar year. The Nisab is the minimum amount of wealth above which Zakat becomes due: 85 grams of gold, or 612.36 grams of silver. Only zakatable assets count — cash, gold, silver, goods for trade and money owed to you. Your house, car and everyday belongings are not counted, and debts you owe are taken off first. Your numbers stay in your browser and are never uploaded.</p>
+<h2>How to use</h2><ol><li>Enter your cash, gold, silver, business stock and money owed to you — all in the same currency.</li><li>Enter the debts you owe, so they are taken off your total.</li><li>Pick the Nisab basis (silver is the lower threshold, so more people qualify under it).</li><li>Click Calculate Zakat to see your net wealth, the Nisab value and the Zakat due.</li></ol><h2>FAQs</h2><p><b>When is Zakat due?</b><br>When your net zakatable wealth is above the Nisab and you have held it for one full lunar year (hawl). If it is below the Nisab, no Zakat is due.</p><p><b>Is Zakat due on my house or car?</b><br>No — things you use yourself, like your home, car, clothes and furniture, are not zakatable. Only wealth held as cash, gold, silver, trade goods or investments counts.</p><p><b>Which Nisab should I use — gold or silver?</b><br>Scholars differ. The silver Nisab is much lower, so it covers more people; many people use it to be safe. If you are unsure, ask a local scholar.</p><p><b>Is this religious advice?</b><br>No. This calculator only does the maths. For a ruling on your own situation, please speak to a qualified scholar.</p>
+</main>
+<footer><a href="/">Home</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/about.html">About</a><a href="/p/contact.html">Contact</a><p>© 2026 Free Tools Hub — Free online tools for everyone.</p></footer>
+<script>
+function zakNum(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)||v<0?0:v;}
+function fmt(n){return Math.round(n).toLocaleString('en-US');}
+function calcZakat(){
+  var cash=zakNum('zakCash');
+  var goldVal=zakNum('zakGoldG')*zakNum('zakGoldP');
+  var silverVal=zakNum('zakSilverG')*zakNum('zakSilverP');
+  var stock=zakNum('zakStock');
+  var owed=zakNum('zakOwed');
+  var debts=zakNum('zakDebts');
+  var basis=document.getElementById('zakNisab').value;
+  var out=document.getElementById('zakOut');
+  var total=cash+goldVal+silverVal+stock+owed;
+  var net=total-debts;
+  var nisab=0;
+  if(basis==='gold'){nisab=85*zakNum('zakGoldP');}
+  else{nisab=612.36*zakNum('zakSilverP');}
+  out.style.display='block';
+  if(total===0&&debts===0){out.textContent='Please enter at least one asset — cash, gold, silver, business stock or money owed to you.';return;}
+  if((basis==='gold'&&zakNum('zakGoldP')<=0)||(basis==='silver'&&zakNum('zakSilverP')<=0)){out.innerHTML='Your net zakatable wealth is <b>'+fmt(net)+'</b> (total assets '+fmt(total)+' minus debts '+fmt(debts)+').<br>To work out the Nisab, please also enter the current price per gram for '+(basis==='gold'?'gold':'silver')+'.';return;}
+  if(net<nisab){
+    out.innerHTML='Your net zakatable wealth is <b>'+fmt(net)+'</b> (total assets '+fmt(total)+' minus debts '+fmt(debts)+').<br>The Nisab ('+(basis==='gold'?'85g gold':'612.36g silver')+') is <b>'+fmt(nisab)+'</b>.<br>Your wealth is below the Nisab, so <b>no Zakat is due</b>.';
+  }else{
+    var zakat=net*0.025;
+    out.innerHTML='Your net zakatable wealth is <b>'+fmt(net)+'</b> (total assets '+fmt(total)+' minus debts '+fmt(debts)+').<br>The Nisab ('+(basis==='gold'?'85g gold':'612.36g silver')+') is <b>'+fmt(nisab)+'</b>.<br>Your Zakat due is <b>'+fmt(zakat)+'</b> (2.5% of '+fmt(net)+').';
+  }
+}
+</script>
