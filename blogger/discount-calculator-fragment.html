@@ -1,0 +1,63 @@
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Arial,sans-serif;margin:0;background:#f4f6f8;color:#1a1a1a;line-height:1.6}
+header{background:#16365c;color:#fff;padding:22px 16px;text-align:center}
+header a{color:#fff;font-size:26px;font-weight:800;text-decoration:none}
+header p{margin:4px 0 0;color:#cfe0f2;font-size:15px}
+nav{background:#0f2a47;padding:10px 16px;text-align:center}
+nav a{color:#dbe9f7;text-decoration:none;margin:0 8px;font-size:14px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+h1{font-size:25px;line-height:1.3}
+.card{background:#fff;border:1px solid #dde3e8;border-radius:10px;padding:20px;margin:18px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #b9c4ce;border-radius:6px;font-size:16px}
+button{background:#16365c;color:#fff;border:0;border-radius:6px;padding:11px 20px;font-size:16px;cursor:pointer;margin:8px 8px 0 0}
+.result{background:#eef6ee;border:1px solid #bcd8bc;border-radius:6px;padding:14px;margin-top:16px;font-size:18px}
+.result b{color:#16365c}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>div{flex:1;min-width:140px}
+footer{background:#16365c;color:#cfe0f2;text-align:center;padding:20px 16px;font-size:14px}
+footer a{color:#fff;margin:0 8px}
+footer p{margin:8px 0 0;color:#9db8d2}
+@media(max-width:600px){h1{font-size:22px}header a{font-size:23px}}
+</style>
+<header><a href="/">Free Tools Hub</a><p>Free online tools, no signup, no download</p></header>
+<nav><a href="/">Home</a><a href="/p/about.html">About</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/contact.html">Contact</a></nav>
+<main>
+<h1>Discount Calculator</h1>
+<p class="intro">Work out the sale price, how much you save and the final price with tax. Free discount calculator — enter the original price and the discount percent, and see the saving in one click. No signup.</p>
+<p>Enter the original price and the discount. If tax is added at the till, enter the tax rate too and the final price will include it.</p>
+<div class="card">
+<label for="dcPrice">Original price</label>
+<input type="number" id="dcPrice" placeholder="e.g. 1000" min="0" step="0.01">
+<div class="row">
+<div><label for="dcDisc">Discount (%)</label><input type="number" id="dcDisc" placeholder="e.g. 20" min="0" max="100" step="0.01"></div>
+<div><label for="dcTax">Tax (%) — optional</label><input type="number" id="dcTax" placeholder="e.g. 0" min="0" step="0.01" value="0"></div>
+</div>
+<button onclick="calcDiscount()">Calculate Discount</button>
+<div id="dcOut" class="result" style="display:none"></div>
+</div>
+<h2>How the discount is worked out</h2>
+<p>The amount you save is the original price times the discount percent. The sale price is the original price minus that saving. If a tax rate is entered, the tax is charged on the sale price — after the discount, not before — and added to give the final price you pay. Your numbers stay in your browser and are never uploaded.</p>
+<h2>How to use</h2><ol><li>Enter the original price before any discount.</li><li>Enter the discount percent — for example 20 for 20% off.</li><li>Enter the tax percent if tax applies, or leave it at 0.</li><li>Click Calculate Discount to see how much you save and the final price.</li></ol><h2>FAQs</h2><p><b>What is 20% off Rs 1,000?</b><br>You save Rs 200 and pay Rs 800 (before tax).</p><p><b>Is tax charged on the price before or after the discount?</b><br>After the discount — on the sale price. That is how shops normally charge it, and this calculator does the same.</p><p><b>Can I use it for a sale price I already know?</b><br>Yes — work backwards: if you know the price you paid and the discount, divide the price you paid by (1 − discount ÷ 100) to get the original price.</p>
+</main>
+<footer><a href="/">Home</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/about.html">About</a><a href="/p/contact.html">Contact</a><p>© 2026 Free Tools Hub — Free online tools for everyone.</p></footer>
+<script>
+function dcNum(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function fmt2(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function calcDiscount(){
+  var price=dcNum('dcPrice');
+  var disc=dcNum('dcDisc');
+  var tax=dcNum('dcTax');
+  var out=document.getElementById('dcOut');
+  out.style.display='block';
+  if(price<=0){out.textContent='Please enter an original price above 0.';return;}
+  if(disc<0||disc>100){out.textContent='Please enter a discount between 0% and 100%.';return;}
+  if(tax<0){out.textContent='Please enter a tax rate of 0% or more.';return;}
+  var saving=price*disc/100;
+  var sale=price-saving;
+  var taxAmt=sale*tax/100;
+  var final=sale+taxAmt;
+  out.innerHTML='You save: <b>'+fmt2(saving)+'</b> ('+disc+'% off)<br>Sale price: <b>'+fmt2(sale)+'</b><br>Tax ('+tax+'%): <b>'+fmt2(taxAmt)+'</b><br>Final price you pay: <b>'+fmt2(final)+'</b>';
+}
+</script>

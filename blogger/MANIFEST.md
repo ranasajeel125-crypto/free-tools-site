@@ -6,7 +6,7 @@ For each page: create a Blogger Page with the exact Page Title below (so the slu
 
 | Page Title | Slug | Search Description | Fragment file |
 |---|---|---|---|
-| Home | home | Free Tools Hub offers 18 free online tools that run in your browser: QR code generator, password generator, age calculator, word counter, case converter, percentage calculator, BMI calculator, random number generator, color picker, unit converter, loan EMI calculator, currency converter, image compressor, merge PDF, calorie calculator, GPA calculator, Zakat calculator and mortgage calculator. No signup, no download. | homepage-fragment.html |
+| Home | home | Free Tools Hub offers 20 free online tools that run in your browser: QR code generator, password generator, age calculator, word counter, case converter, percentage calculator, BMI calculator, random number generator, color picker, unit converter, loan EMI calculator, currency converter, image compressor, merge PDF, calorie calculator, GPA calculator, Zakat calculator, mortgage calculator, date calculator and discount calculator. No signup, no download. | homepage-fragment.html |
 | QR Code Generator | qr-code-generator | Free QR code generator: type any text or web link and get a QR code instantly. Download it as a picture. No signup, no download, free to use. | qr-code-generator-fragment.html |
 | Password Generator | password-generator | Free password generator: create a strong random password with the length and characters you choose. Copy it with one click. No signup, passwords are made in your browser. | password-generator-fragment.html |
 | Age Calculator | age-calculator | Free age calculator: enter your date of birth and find your exact age in years, months and days, plus how many days you have lived. No signup, free to use. | age-calculator-fragment.html |
@@ -25,5 +25,7 @@ For each page: create a Blogger Page with the exact Page Title below (so the slu
 | GPA Calculator | gpa-calculator | Free GPA calculator: enter your course grades and credit hours to work out your GPA on the 4.0 scale. No signup, free to use. | gpa-calculator-fragment.html |
 | Zakat Calculator | zakat-calculator | Free Zakat calculator: enter your cash, gold, silver and business assets minus debts to work out your Zakat at 2.5% above the Nisab. No signup, free to use. | zakat-calculator-fragment.html |
 | Mortgage Calculator | mortgage-calculator | Free mortgage calculator: enter the home price, down payment, interest rate and loan term to find your monthly payment, total interest and total cost. No signup. | mortgage-calculator-fragment.html |
+| Date Calculator | date-calculator | Free date calculator: count the days between two dates, or add and subtract days to find a future or past date, with the day of the week. No signup, free to use. | date-calculator-fragment.html |
+| Discount Calculator | discount-calculator | Free discount calculator: enter the original price and discount percent to find how much you save, the sale price and the final price with tax. No signup. | discount-calculator-fragment.html |
 
 Raw fragment URLs: https://raw.githubusercontent.com/ranasajeel125-crypto/free-tools-site/master/blogger/<fragment file>
