@@ -1,0 +1,63 @@
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Arial,sans-serif;margin:0;background:#f4f6f8;color:#1a1a1a;line-height:1.6}
+header{background:#16365c;color:#fff;padding:22px 16px;text-align:center}
+header a{color:#fff;font-size:26px;font-weight:800;text-decoration:none}
+header p{margin:4px 0 0;color:#cfe0f2;font-size:15px}
+nav{background:#0f2a47;padding:10px 16px;text-align:center}
+nav a{color:#dbe9f7;text-decoration:none;margin:0 8px;font-size:14px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+h1{font-size:25px;line-height:1.3}
+.card{background:#fff;border:1px solid #dde3e8;border-radius:10px;padding:20px;margin:18px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #b9c4ce;border-radius:6px;font-size:16px}
+button{background:#16365c;color:#fff;border:0;border-radius:6px;padding:11px 20px;font-size:16px;cursor:pointer;margin:8px 8px 0 0}
+.result{background:#eef6ee;border:1px solid #bcd8bc;border-radius:6px;padding:14px;margin-top:16px;font-size:18px}
+.result b{color:#16365c}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>div{flex:1;min-width:140px}
+footer{background:#16365c;color:#cfe0f2;text-align:center;padding:20px 16px;font-size:14px}
+footer a{color:#fff;margin:0 8px}
+footer p{margin:8px 0 0;color:#9db8d2}
+@media(max-width:600px){h1{font-size:22px}header a{font-size:23px}}
+</style>
+<header><a href="/">Free Tools Hub</a><p>Free online tools, no signup, no download</p></header>
+<nav><a href="/">Home</a><a href="/p/about.html">About</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/contact.html">Contact</a></nav>
+<main>
+<h1>Salary / Paycheck Calculator</h1>
+<p class="intro">Work out your take-home pay per paycheck, per month and per year. Free salary calculator — enter your annual salary, how often you are paid, and your tax rate, and see your net pay in one click. No signup.</p>
+<p>Enter your gross annual salary, choose how often you get paid, and enter the tax rate that applies to you. The calculator shows the gross and net pay for each paycheck, plus your monthly and annual take-home pay.</p>
+<div class="card">
+<label for="salAnnual">Gross annual salary</label>
+<input type="number" id="salAnnual" placeholder="e.g. 52000" min="0" step="0.01">
+<div class="row">
+<div><label for="salFreq">How often are you paid?</label><select id="salFreq"><option value="52">Weekly (52 paychecks a year)</option><option value="26" selected>Every 2 weeks (26 paychecks a year)</option><option value="24">Twice a month (24 paychecks a year)</option><option value="12">Monthly (12 paychecks a year)</option></select></div>
+<div><label for="salTax">Tax rate (%) — optional</label><input type="number" id="salTax" placeholder="e.g. 20" min="0" max="100" step="0.01" value="20"></div>
+</div>
+<button onclick="calcSalary()">Calculate Paycheck</button>
+<div id="salOut" class="result" style="display:none"></div>
+</div>
+<h2>How your paycheck is worked out</h2>
+<p>Your gross pay per paycheck is your annual salary divided by the number of paychecks in the year — 52 weekly, 26 every two weeks, 24 twice a month, or 12 monthly. Tax is taken off that gross pay at the rate you enter, and what is left is your net (take-home) pay. Monthly take-home pay is your annual net pay divided by 12. Your numbers stay in your browser and are never uploaded.</p>
+<h2>How to use</h2><ol><li>Enter your gross annual salary before any tax.</li><li>Choose how often you are paid.</li><li>Enter your tax rate, or leave it at 0 if you only want the gross figures.</li><li>Click Calculate Paycheck to see your gross and net pay per paycheck, per month and per year.</li></ol><h2>FAQs</h2><p><b>What is my monthly pay on a $52,000 salary?</b><br>Gross pay is $4,333.33 a month. At 20% tax, take-home pay is $3,466.67 a month — $1,600.00 net every two weeks.</p><p><b>How do I work out my salary from an hourly wage?</b><br>Multiply your hourly wage by the hours you work each week, then by 52 — for example $25 an hour × 40 hours × 52 weeks = $52,000 a year. Enter that annual figure here.</p><p><b>Is the tax figure exact?</b><br>No — it is a simple estimate using one flat rate. Real tax depends on your country, tax bands, allowances and deductions, so use this as a guide, not a payslip.</p>
+</main>
+<footer><a href="/">Home</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/about.html">About</a><a href="/p/contact.html">Contact</a><p>© 2026 Free Tools Hub — Free online tools for everyone.</p></footer>
+<script>
+function salNum(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function fmtSal(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function calcSalary(){
+  var annual=salNum('salAnnual');
+  var freq=parseInt(document.getElementById('salFreq').value,10);
+  var tax=salNum('salTax');
+  var out=document.getElementById('salOut');
+  out.style.display='block';
+  if(annual<=0){out.textContent='Please enter an annual salary above 0.';return;}
+  if(tax<0||tax>100){out.textContent='Please enter a tax rate between 0% and 100%.';return;}
+  var grossPer=annual/freq;
+  var taxPer=grossPer*tax/100;
+  var netPer=grossPer-taxPer;
+  var netAnnual=annual*(1-tax/100);
+  var netMonthly=netAnnual/12;
+  out.innerHTML='Gross pay per paycheck: <b>'+fmtSal(grossPer)+'</b><br>Tax ('+tax+'%): <b>'+fmtSal(taxPer)+'</b><br>Net (take-home) pay per paycheck: <b>'+fmtSal(netPer)+'</b><br>Take-home pay per month: <b>'+fmtSal(netMonthly)+'</b><br>Take-home pay per year: <b>'+fmtSal(netAnnual)+'</b>';
+}
+</script>

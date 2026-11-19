@@ -6,7 +6,7 @@ For each page: create a Blogger Page with the exact Page Title below (so the slu
 
 | Page Title | Slug | Search Description | Fragment file |
 |---|---|---|---|
-| Home | home | Free Tools Hub offers 20 free online tools that run in your browser: QR code generator, password generator, age calculator, word counter, case converter, percentage calculator, BMI calculator, random number generator, color picker, unit converter, loan EMI calculator, currency converter, image compressor, merge PDF, calorie calculator, GPA calculator, Zakat calculator, mortgage calculator, date calculator and discount calculator. No signup, no download. | homepage-fragment.html |
+| Home | home | Free Tools Hub offers 22 free online tools that run in your browser: QR code generator, password generator, age calculator, word counter, case converter, percentage calculator, BMI calculator, random number generator, color picker, unit converter, loan EMI calculator, currency converter, image compressor, merge PDF, calorie calculator, GPA calculator, Zakat calculator, mortgage calculator, date calculator, discount calculator, tip calculator and salary / paycheck calculator. No signup, no download. | homepage-fragment.html |
 | QR Code Generator | qr-code-generator | Free QR code generator: type any text or web link and get a QR code instantly. Download it as a picture. No signup, no download, free to use. | qr-code-generator-fragment.html |
 | Password Generator | password-generator | Free password generator: create a strong random password with the length and characters you choose. Copy it with one click. No signup, passwords are made in your browser. | password-generator-fragment.html |
 | Age Calculator | age-calculator | Free age calculator: enter your date of birth and find your exact age in years, months and days, plus how many days you have lived. No signup, free to use. | age-calculator-fragment.html |
@@ -27,5 +27,7 @@ For each page: create a Blogger Page with the exact Page Title below (so the slu
 | Mortgage Calculator | mortgage-calculator | Free mortgage calculator: enter the home price, down payment, interest rate and loan term to find your monthly payment, total interest and total cost. No signup. | mortgage-calculator-fragment.html |
 | Date Calculator | date-calculator | Free date calculator: count the days between two dates, or add and subtract days to find a future or past date, with the day of the week. No signup, free to use. | date-calculator-fragment.html |
 | Discount Calculator | discount-calculator | Free discount calculator: enter the original price and discount percent to find how much you save, the sale price and the final price with tax. No signup. | discount-calculator-fragment.html |
+| Tip Calculator | tip-calculator | Free tip calculator: enter the bill and tip percent to find the tip, the total bill and each person's share when splitting. No signup. | tip-calculator-fragment.html |
+| Salary / Paycheck Calculator | salary-paycheck-calculator | Free salary calculator: enter your annual salary, pay frequency and tax rate to find your take-home pay per paycheck, per month and per year. No signup. | salary-paycheck-calculator-fragment.html |
 
 Raw fragment URLs: https://raw.githubusercontent.com/ranasajeel125-crypto/free-tools-site/master/blogger/<fragment file>

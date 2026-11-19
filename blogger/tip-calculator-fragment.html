@@ -1,0 +1,67 @@
+<style>
+*{box-sizing:border-box}
+body{font-family:system-ui,-apple-system,Arial,sans-serif;margin:0;background:#f4f6f8;color:#1a1a1a;line-height:1.6}
+header{background:#16365c;color:#fff;padding:22px 16px;text-align:center}
+header a{color:#fff;font-size:26px;font-weight:800;text-decoration:none}
+header p{margin:4px 0 0;color:#cfe0f2;font-size:15px}
+nav{background:#0f2a47;padding:10px 16px;text-align:center}
+nav a{color:#dbe9f7;text-decoration:none;margin:0 8px;font-size:14px}
+main{max-width:760px;margin:0 auto;padding:24px 16px 40px}
+h1{font-size:25px;line-height:1.3}
+.card{background:#fff;border:1px solid #dde3e8;border-radius:10px;padding:20px;margin:18px 0}
+label{display:block;font-weight:600;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #b9c4ce;border-radius:6px;font-size:16px}
+button{background:#16365c;color:#fff;border:0;border-radius:6px;padding:11px 20px;font-size:16px;cursor:pointer;margin:8px 8px 0 0}
+.result{background:#eef6ee;border:1px solid #bcd8bc;border-radius:6px;padding:14px;margin-top:16px;font-size:18px}
+.result b{color:#16365c}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>div{flex:1;min-width:140px}
+footer{background:#16365c;color:#cfe0f2;text-align:center;padding:20px 16px;font-size:14px}
+footer a{color:#fff;margin:0 8px}
+footer p{margin:8px 0 0;color:#9db8d2}
+@media(max-width:600px){h1{font-size:22px}header a{font-size:23px}}
+</style>
+<header><a href="/">Free Tools Hub</a><p>Free online tools, no signup, no download</p></header>
+<nav><a href="/">Home</a><a href="/p/about.html">About</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/contact.html">Contact</a></nav>
+<main>
+<h1>Tip Calculator</h1>
+<p class="intro">Work out the tip, the total bill and each person's share in one click. Free tip calculator — enter the bill, pick a tip percent, and split it between friends if you like. No signup.</p>
+<p>Enter the bill amount before the tip, choose how much to tip, and how many people are splitting the bill. The calculator shows the tip, the total, and what each person pays.</p>
+<div class="card">
+<label for="tipBill">Bill amount</label>
+<input type="number" id="tipBill" placeholder="e.g. 100" min="0" step="0.01">
+<div class="row">
+<div><label for="tipPct">Tip (%)</label><input type="number" id="tipPct" placeholder="e.g. 15" min="0" max="100" step="0.5" value="15"></div>
+<div><label for="tipPeople">Split between (people)</label><input type="number" id="tipPeople" placeholder="e.g. 1" min="1" step="1" value="1"></div>
+</div>
+<button onclick="calcTip()">Calculate Tip</button>
+<button onclick="setTip(10)">10%</button>
+<button onclick="setTip(15)">15%</button>
+<button onclick="setTip(20)">20%</button>
+<div id="tipOut" class="result" style="display:none"></div>
+</div>
+<h2>How the tip is worked out</h2>
+<p>The tip is the bill times the tip percent. The total is the bill plus the tip. If the bill is split, the total is divided equally between the people — each person pays the same share of the bill and the same share of the tip. Your numbers stay in your browser and are never uploaded.</p>
+<h2>How to use</h2><ol><li>Enter the bill amount before any tip.</li><li>Enter the tip percent, or tap 10%, 15% or 20%.</li><li>Enter how many people are splitting the bill — leave it at 1 if you are paying alone.</li><li>Click Calculate Tip to see the tip, the total and each person's share.</li></ol><h2>FAQs</h2><p><b>How much is a 15% tip on a $100 bill?</b><br>The tip is $15.00 and the total is $115.00 — split between 4 people, each pays $28.75.</p><p><b>What is a good tip percent?</b><br>15% is standard in many places, 20% for great service, and 10% where tipping is less common. This calculator lets you try any percent.</p><p><b>Should the tip be calculated before or after tax?</b><br>Usually on the bill before tax — enter the pre-tax bill amount here and the tip will be worked out on that.</p>
+</main>
+<footer><a href="/">Home</a><a href="/p/privacy-policy.html">Privacy Policy</a><a href="/p/about.html">About</a><a href="/p/contact.html">Contact</a><p>© 2026 Free Tools Hub — Free online tools for everyone.</p></footer>
+<script>
+function tipNum(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?0:v;}
+function fmtTip(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function setTip(p){document.getElementById('tipPct').value=p;calcTip();}
+function calcTip(){
+  var bill=tipNum('tipBill');
+  var pct=tipNum('tipPct');
+  var people=Math.floor(tipNum('tipPeople'));
+  var out=document.getElementById('tipOut');
+  out.style.display='block';
+  if(bill<=0){out.textContent='Please enter a bill amount above 0.';return;}
+  if(pct<0||pct>100){out.textContent='Please enter a tip between 0% and 100%.';return;}
+  if(people<1){out.textContent='Please enter at least 1 person.';return;}
+  var tip=bill*pct/100;
+  var total=bill+tip;
+  var perPerson=total/people;
+  var tipPerPerson=tip/people;
+  out.innerHTML='Tip ('+pct+'%): <b>'+fmtTip(tip)+'</b><br>Total bill: <b>'+fmtTip(total)+'</b><br>Each person pays: <b>'+fmtTip(perPerson)+'</b> (including <b>'+fmtTip(tipPerPerson)+'</b> tip)';
+}
+</script>
